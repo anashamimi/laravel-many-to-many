@@ -21,7 +21,8 @@
                     <div class="card-body">
                         <h4 class="fs-4 card-title fw-bold text-center text-capitalize py-2">{{ $product->title }}</h4>
                         <p class="card-text">{{ $product->title }}</p>
-                        <p class="card-text">price: {{ $product->price }}</p>
+                        <p class="card-text">price: {{ $product->price }}&euro;</p>
+                        <p class="card-text">{{ $product->type ? $product->type->name : 'No type specified' }}</p>
 
                         <div class="d-flex justify-content-between align-items-center">
                             <a class="m-1" href="{{ route('admin.products.show', $product->id) }}"><button
@@ -36,7 +37,6 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
 @endsection

@@ -10,8 +10,9 @@
         <h1 class=" text-center fw-bold fs-2 py-4 text-uppercase">{{ $product->title }}</h1>
         <div class=" d-flex justify-content-between px-5">
             <div class="py-3">
-                <p class="text-bg-success d-inline-block p-2">PRICE: {{ $product->price }}</p>
+                <p class="text-bg-success d-inline-block p-2">PRICE: {{ $product->price }}&euro;</p>
                 <p class=" w-50">{{ $product->description }}</p>
+                <p class="text-bg-primary d-inline-block p-2">{{ $product->type ? $product->type->name : 'No type specified' }}</p>
             </div>
 
             <img class="img-fluid" src="{{ $product->image }}" alt="{{ $product->title }}">

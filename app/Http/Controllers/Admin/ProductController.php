@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Type;
 
 class ProductController extends Controller
 {
@@ -28,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $types = Type::all();
+        return view('admin.products.create', compact('types'));
     }
 
     /**
@@ -47,10 +49,6 @@ class ProductController extends Controller
         return redirect()->route('admin.products.show', $newProduct->id, $newProduct->name)->with('message', "The Book
         {$newProduct->name} has been added successfully");
 
-        if($request->has('tags')){
-            $post->attach($request->tags);
-        }
-        return
     }
 
     /**
@@ -72,7 +70,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $types = Type::all();
+        return view('admin.products.edit', compact('product', 'types'));
     }
 
     /**
@@ -83,13 +82,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProductRequest $request, Product $product)
-    {
-        $form_data = $request->validated();
-        $product->update($form_data);
-        $products = Product::all();
-        return view('admin.products.index', compact('products'))->with('message', "$product->title has been successfully modified.");;
+{
+    $form_data = $request->validated();
+    $product->update($form_data);
 
-    }
+    return redirect()->route('admin.products.show', $product->id)
+        ->with('message', "$product->title has been successfully modified.");
+}
+
 
     /**
      * Remove the specified resource from storage.

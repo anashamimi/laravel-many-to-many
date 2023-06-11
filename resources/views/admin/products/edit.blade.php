@@ -43,6 +43,22 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="type_id">Type tech</label>
+            <select name="type_id" id="type_id" class="form-control @error('type_id') is-invalid @enderror">
+                <option value="">Select tech</option>
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}"
+                        {{ $type->id == old('type_id', $product->type_id) ? 'selected' : '' }}>
+                        {{ $type->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-success">Save</button>
         <button type="reset" class="btn btn-primary">Reset</button>
     </form>
