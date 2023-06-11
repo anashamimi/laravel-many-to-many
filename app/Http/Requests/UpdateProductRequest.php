@@ -28,7 +28,8 @@ class UpdateProductRequest extends FormRequest
             'description' => 'required|min:10',
             'price' => 'required|numeric|min:5|max:99',
             'image' => 'required|max:255|min:10',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:tags,id'
         ];
     }
 }

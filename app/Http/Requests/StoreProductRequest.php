@@ -29,7 +29,8 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric|min:5|max:99|regex:/^\d+(\.\d{2})?$/',
             'image' => 'required|max:255|min:10',
             'type_id' => 'nullable|exists:types,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            'technologies' => 'nullable|exists:tags,id'
         ];
     }
 }

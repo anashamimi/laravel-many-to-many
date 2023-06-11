@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Technology;
 use App\Models\Type;
 
 class ProductController extends Controller
@@ -30,7 +31,8 @@ class ProductController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.products.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.products.create', compact('types', 'technologies'));
     }
 
     /**
@@ -41,15 +43,20 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-
         $form_data = $request->all();
+
         $newProduct = new Product();
         $newProduct->fill($form_data);
         $newProduct->save();
-        return redirect()->route('admin.products.show', $newProduct->id, $newProduct->name)->with('message', "The Book
-        {$newProduct->name} has been added successfully");
 
+        if ($request->has('technologies')) {
+            $newProduct->technologies()->attach($request->technologies);
+        }
+
+        return redirect()->route('admin.products.show', [$newProduct->id, $newProduct->name])
+            ->with('message', "The Book {$newProduct->name} has been added successfully");
     }
+
 
     /**
      * Display the specified resource.
@@ -71,7 +78,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $types = Type::all();
-        return view('admin.products.edit', compact('product', 'types'));
+        $technologies = Technology::all();
+        return view('admin.products.edit', compact('product', 'types', 'technologies'));
     }
 
     /**
@@ -82,13 +90,21 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProductRequest $request, Product $product)
-{
-    $form_data = $request->validated();
-    $product->update($form_data);
+    {
+        $form_data = $request->validated();
+        $product->update($form_data);
 
-    return redirect()->route('admin.products.show', $product->id)
-        ->with('message', "$product->title has been successfully modified.");
-}
+        if ($request->has('technologies')) {
+            $technologies = $request->input('technologies');
+            $product->technologies()->sync($technologies);
+        } else {
+            $product->technologies()->sync([]);
+        }
+
+        return redirect()->route('admin.products.show', $product->id)
+            ->with('message', "$product->title has been successfully modified.");
+    }
+
 
 
     /**

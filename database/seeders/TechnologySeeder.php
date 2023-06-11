@@ -16,7 +16,7 @@ class TechnologySeeder extends Seeder
      */
     public function run()
     {
-        $tencologies = [
+        $technologies = [
             'Php',
             'Html',
             'Css',
@@ -28,10 +28,10 @@ class TechnologySeeder extends Seeder
             'Swift',
         ];
 
-        foreach($tencologies as $tencology){
+        foreach($technologies as $technology){
             $newTecnology = new Technology();
-            $newTecnology->name = $tencology;
-            $newTecnology->slug = Str::slug($tencology, '-');
+            $newTecnology->name = $technology;
+            $newTecnology->slug = Str::slug($technology, '-');
             $newTecnology->save();
         }
     }

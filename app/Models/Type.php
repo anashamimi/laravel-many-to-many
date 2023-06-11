@@ -12,7 +12,7 @@ class Type extends Model
 
     protected $fillable = ['name', 'slug'];
 
-    public function posts(): HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

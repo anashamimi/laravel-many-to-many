@@ -23,11 +23,6 @@
                         <p class="card-text">{{ $product->title }}</p>
                         <p class="card-text">price: {{ $product->price }}&euro;</p>
                         <p class="card-text">{{ $product->type ? $product->type->name : 'No type specified' }}</p>
-                        <div class="d-flex align-items-center gap-1">
-                            @foreach ($product->technologies as $technology)
-                                <p class="text-bg-warning px-1 rounded-5">{{ $technology->name }}</p>
-                            @endforeach
-                        </div>
 
                         <div class="d-flex justify-content-between align-items-center">
                             <a class="m-1" href="{{ route('admin.products.show', $product->id) }}"><button

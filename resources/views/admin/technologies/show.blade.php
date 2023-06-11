@@ -13,11 +13,6 @@
                 <p class="text-bg-success d-inline-block p-2">PRICE: {{ $product->price }}&euro;</p>
                 <p class=" w-50">{{ $product->description }}</p>
                 <p class="text-bg-primary d-inline-block p-2">{{ $product->type ? $product->type->name : 'No type specified' }}</p>
-                <div class="d-flex align-items-center gap-2">
-                    @foreach ($product->technologies as $technology)
-                        <p class="text-bg-warning px-1 rounded-5">{{ $technology->name }}</p>
-                    @endforeach
-                </div>
             </div>
 
             <img class="img-fluid" src="{{ $product->image }}" alt="{{ $product->title }}">
